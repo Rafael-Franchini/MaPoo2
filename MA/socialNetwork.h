@@ -8,9 +8,11 @@ using namespace std;
 class socialNetwork {
 private:
 	string Nome;
-	vector<string> Data;
+	char* Data;
 	vector<Post*> Posts;
 public:
+	void curtirPost(int cod);
+	void compPost(int cod);
 	socialNetwork(string nome);
 	string getNome();
 	void setNome(string nome);

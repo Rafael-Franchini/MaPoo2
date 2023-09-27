@@ -1,13 +1,12 @@
 #include "usuario.h"
-#include <ctime>
 
 Usuario::Usuario(string nome) {
+	this->nomeCompleto = nome;
 	time_t agora;
 	time(&agora);
-	tm *dataHora = localtime(&agora);
-	string dataFormatada = to_string(dataHora->tm_mday) + "/" + to_string(dataHora->tm_mon) + "/" + to_string(dataHora->tm_year);
-	this->nomeCompleto = nome;
-	this->Data.push_back(dataFormatada);
+	char buffer[26];
+	ctime_s(buffer, sizeof(buffer), &agora);
+	this->Data = buffer;
 }
 
 void Usuario::setNome(string nome) {
@@ -37,4 +36,27 @@ socialNetwork* Usuario::getRede(string nomeRede) {
 		
 	}
 	return NULL;
+}
+
+void Usuario::adicionaPost(string nomeRede, Post* post) {
+	for (int i = 0; i < this->Redes.size(); i++) {
+		if (this->Redes[i]->getNome() == nomeRede) {
+			this->Redes[i]->postar(post);
+		}
+	}
+}
+
+void Usuario::curtirPost(string nomeRede, int codigo) {
+	for (int i = 0; i < this->Redes.size(); i++) {
+		if (this->Redes[i]->getNome() == nomeRede) {
+			Redes[i]->curtirPost(codigo);
+		}
+	}
+}
+void Usuario::compPost(string nomeRede, int codigo) {
+	for (int i = 0; i < this->Redes.size(); i++) {
+		if (this->Redes[i]->getNome() == nomeRede) {
+			Redes[i]->compPost(codigo);
+		}
+	}
 }

@@ -5,11 +5,12 @@
 #include <iostream>
 using namespace std;
 
+// Uso do polimorfismo aqui pois elas herdam da classe Post o compartilhar, porem implementam de forma diferente
 class TwitterPost : public Post {
 public:
-    TwitterPost(int codigo, const  string& descricao);
+    TwitterPost(int codigo, string& descricao);
 
-    void compartilhar() ;
+    void compartilhar();
 };
 
 #endif

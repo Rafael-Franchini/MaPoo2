@@ -1,12 +1,14 @@
 #include "socialNetwork.h"
 
 socialNetwork::socialNetwork(string nome) {
+
+	this->Nome = nome;
+
 	time_t agora;
 	time(&agora);
-	tm* dataHora = localtime(&agora);
-	string dataFormatada = to_string(dataHora->tm_mday) + "/" + to_string(dataHora->tm_mon) + "/" + to_string(dataHora->tm_year);
-	this->Data.push_back(dataFormatada);
-	this->Nome = nome;
+	char buffer[26];
+	ctime_s(buffer, sizeof(buffer), &agora);
+	this->Data = buffer;
 }
 
 void socialNetwork::setNome(string nome) {
@@ -28,4 +30,18 @@ void socialNetwork::deletarPost(int cod) {
 
 void socialNetwork::postar(Post* post) {
 	this->Posts.push_back(post);
+}
+void socialNetwork::curtirPost(int cod) {
+	for (int i = 0; i < Posts.size(); i++) {
+		if (this->Posts[i]->getCodigo() == cod) {
+		 this->Posts[i]->curtir();
+		}
+	}
+}
+void socialNetwork::compPost(int cod) {
+	for (int i = 0; i < Posts.size(); i++) {
+		if (this->Posts[i]->getCodigo() == cod) {
+			this->Posts[i]->compartilhar();
+		}
+	}
 }
